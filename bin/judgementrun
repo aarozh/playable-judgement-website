@@ -1,0 +1,10 @@
+#!/bin/bash
+# judgement
+
+# Stop on errors
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -Eeuo pipefail
+
+# export FLASK_ENV=development
+# export FLASK_APP=judgement
+flask --app judgement run --debug
