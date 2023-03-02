@@ -1,5 +1,5 @@
 #!/bin/bash
-# judgement
+# judgement script to run locally in debug mode
 
 # Stop on errors
 # See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/

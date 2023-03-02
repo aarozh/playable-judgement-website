@@ -4,11 +4,6 @@
         <meta charset="UTF-8">
         <title>playable-judgement-website</title>
         <link rel="stylesheet" href={{url_for('static', filename='css/mainpage.css')}}>
-        <script 
-            src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" 
-            integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" 
-            crossorigin="anonymous">
-        </script>
     </head>
     <body>
         <div class="content">
@@ -17,21 +12,21 @@
                 <div>
                     <label>Name:</label>
                     <input type="text" name="name" 
-                    {% if error_name %}
-                        placeholder="{{error_name}}"
-                    {% endif %}
+                        {% if error_name %}
+                            placeholder="{{error_name}}"
+                        {% endif %}
                     value="{{name}}"/>
                 </div>
     
                 <div class="join">
                     <input type="text" 
-                    {% if error_code %}
-                        placeholder="{{error_code}}"
-                    {% endif %}
-                    {% if not error_code %}
-                        placeholder="Room Code"
-                    {% endif %}
-                    name="code"/>
+                        {% if error_code %}
+                            placeholder="{{error_code}}"
+                        {% endif %}
+                        {% if not error_code %}
+                            placeholder="Room Code"
+                        {% endif %}
+                    name="code" value="{{code}}"/>
                     <button type="submit" name="join">Enter Private Room ID</button>
                 </div>
     

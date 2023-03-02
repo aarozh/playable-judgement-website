@@ -3,7 +3,7 @@ DROP TABLE IF EXISTS lobby;
 DROP TABLE IF EXISTS players;
 
 CREATE TABLE lobby(
-  lobby_id INTEGER,
+  lobby_id VARCHAR(20) NOT NULL,
   deck_id VARCHAR(20) NOT NULL,
   deck_type VARCHAR(10) NOT NULL,
   cards VARCHAR(10) NOT NULL,

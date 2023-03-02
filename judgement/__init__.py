@@ -16,3 +16,11 @@ if __name__ == "__main__": #__main__ should be change maybe?
 
 import judgement.db
 import judgement.views
+
+@app.before_first_request
+def create_tables():
+    """Initalize the database."""
+    
+    judgement.db.init_db()
+
+
