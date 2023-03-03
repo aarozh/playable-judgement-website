@@ -7,4 +7,5 @@ set -Eeuo pipefail
 
 # export FLASK_ENV=development
 # export FLASK_APP=judgement
-flask --app judgement run --debug
+# flask --app judgement run --debug
+python3 judgement.py
