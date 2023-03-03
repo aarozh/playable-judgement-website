@@ -32,7 +32,14 @@ def create_app():
         
         flask_socketio.join_room(lobby_id)
         flask_socketio.send({"name": name, "message": "joined"}, to=lobby_id)
-        # TODO add player to database
+
+        connection = db.get_db()
+        connection.execute(
+            "UPDATE lobby "
+            "SET player_count = player_count + 1 "
+            "WHERE lobby_id = (?)",
+            [lobby_id]
+        )
 
     @socketio.on("disconnect")
     def disconnect():
@@ -40,9 +47,26 @@ def create_app():
         name = flask.session.get("name")
         flask_socketio.leave_room(lobby_id)
         if lobby_exists(lobby_id):
-            # TODO remove player from lobby
-            # TODO if there are no more players in the lobby, delete the lobby
-            return
+            connection = db.get_db()
+            connection.execute(
+                "UPDATE lobby "
+                "SET player_count = player_count - 1 "
+                "WHERE lobby_id = (?)",
+                [lobby_id]
+            )
+            player_count = connection.execute(
+                "SELECT * "
+                "FROM lobby "
+                "WHERE lobby_id = (?) "
+                "AND player_count = 0",
+                [lobby_id]
+            )
+            if player_count.fetchone() is not None:
+                connection.execute(
+                    "DELETE FROM lobby "
+                    "WHERE lobby_id = (?)",
+                    [lobby_id]
+                )
         
         flask_socketio.send({"name": name, "message": "has left"}, to=lobby_id)
         return

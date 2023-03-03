@@ -9,6 +9,7 @@ import flask
 import random
 import string
 from .helper import lobby_exists
+from . import db
 
 main = flask.Blueprint("main", __name__)
 
@@ -49,7 +50,13 @@ def main_page():
         if create != False:
             # user tries to create a new lobby
             lobby_id = generate_room_code()
-            # TODO add this lobby_id to lobby table
+            connection = db.get_db()
+            connection.execute(
+                "INSERT INTO lobby "
+                "(lobby_id, player_count) "
+                "VALUES ((?), 0)",
+                [lobby_id]
+            )
         elif not lobby_exists(code):
             # if the code the user enters is not a lobby code in the database, prompt user for a different code
             return flask.render_template('mainpage.html', error_code="Room code does not exist.", name = name)    

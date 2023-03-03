@@ -11,41 +11,42 @@
         </script>
     </head>
     <body>
-        <h1>Lobby ID: {% if lobby_id %}{{lobby_id}}{% endif %}</h1>
+        <div class="content">
+            <h1>Lobby ID: {{lobby_id}}</h1>
 
-        <!--TODO Add user has joined message-->
+            <label for="roundstart">Enter starting round number of cards in hand:</label>
+            <input type="text" id="roundstart" placeholder="1-10"><br>
+            
+            <input type="radio" id="modeup" name="mode">
+            <label for="modeup">Play rounds down and up</label><br>
+            <input type="radio" id="modedown" name="mode">
+            <label for="modedown">Play rounds going down only</label><br>
 
-        <script type="text/javascript">
-            var socketio = io();
+            <button type="submit" name="join">Start Game</button>
 
-            const messages = document.getElementById("messages");
+            <div class="messages" id="messages"></div>
 
-            const createMessage = (name, msg) => {
-                const content = `
-                <div class="text">
-                    <span>
-                        <strong>${name}</strong>:${msg}
-                    </span>
-                </div>
-                `;
-                messages.innerHTML += content;
-            };
-
-            socketio.on("message", (data) => {
-                createMessage(data.name, data.message);
-            });
-        </script>
-
-        <label for="roundstart">Enter starting round number of cards in hand:</label>
-        <input type="text" id="roundstart" placeholder="1-10"><br>
-
-
-        
-        <input type="radio" id="modeup" name="mode">
-        <label for="modeup">Play rounds down and up</label><br>
-        <input type="radio" id="modedown" name="mode">
-        <label for="modedown">Play rounds going down only</label><br>
-
+            <script type="text/javascript">
+                var socketio = io();
+    
+                const messages = document.getElementById("messages");
+    
+                const createMessage = (name, msg) => {
+                    const content = `
+                    <div class="text">
+                        <span>
+                            <strong>${name}</strong> ${msg}
+                        </span>
+                    </div>
+                    `;
+                    messages.innerHTML += content;
+                };
+    
+                socketio.on("message", (data) => {
+                    createMessage(data.name, data.message);
+                });
+            </script>
+        </div>
 
         <!--
         <input type="radio" id="standard" name="deck">

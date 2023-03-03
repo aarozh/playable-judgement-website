@@ -28,7 +28,7 @@ def close_db(e=None):
     db = flask.g.pop('db', None)
 
     if db is not None: 
-        # Mybe need db.commit() late depending on implementation
+        db.commit()
         db.close()
 
 def init_db(app):

@@ -1,18 +1,20 @@
 PRAGMA foreign_keys = ON;
 DROP TABLE IF EXISTS lobby;
+DROP TABLE IF EXISTS game;
 DROP TABLE IF EXISTS players;
 
 CREATE TABLE lobby(
   lobby_id VARCHAR(20) NOT NULL,
-  deck_id VARCHAR(20) NOT NULL,
-  deck_type VARCHAR(10) NOT NULL,
-  cards VARCHAR(10) NOT NULL,
+  player_count INTEGER NOT NULL,
+  PRIMARY KEY (lobby_id)
+);
+
+CREATE TABLE game(
+  lobby_id VARCHAR(20) NOT NULL,
   modeup VARCHAR(10) NOT NULL,
   round_start INTEGER NOT NULL,
-  cur_round INTEGER NOT NULL,
-  player_count INTEGER NOT NULL,
-  dealer INTEGER NOT NULL,
-  PRIMARY KEY (lobby_id)
+  PRIMARY KEY (lobby_id),
+  FOREIGN KEY (lobby_id) REFERENCES lobby(lobby_id) ON DELETE CASCADE
 );
 
 CREATE TABLE players(
