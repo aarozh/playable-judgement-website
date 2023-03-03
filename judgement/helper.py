@@ -5,9 +5,12 @@ Functions include:
 lobby_exists: returns if a lobby_id parameter already exists
 """
 
-def lobby_exists(connection, code):
+from . import db
+
+def lobby_exists(code):
     """Check to make sure that a lobby code exists in the database."""
 
+    connection = db.get_db()
     existing_code = connection.execute(
         "SELECT lobby_id "
         "FROM lobby "

@@ -6,10 +6,11 @@ URLs include:
 """
 
 import flask
-import judgement
 import random
 import string
 from .helper import lobby_exists
+
+main = flask.Blueprint("main", __name__)
 
 def generate_room_code():
     """Generate a unique room code."""
@@ -17,12 +18,11 @@ def generate_room_code():
     generated_code = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(6))
 
     # check if the generated code already exists
-    connection = judgement.db.get_db()
-    while lobby_exists(connection, generated_code):
+    while lobby_exists(generated_code):
         generated_code = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(6))
     return generated_code
 
-@judgement.app.route("/", methods=["POST", "GET"])
+@main.route("/", methods=["POST", "GET"])
 def main_page():
     """Main page post and get request route handling."""
 
@@ -45,13 +45,12 @@ def main_page():
             return flask.render_template('mainpage.html', error_code="Please enter a code.", name = name)
 
         lobby_id = code
-        connection = judgement.db.get_db()
 
         if create != False:
             # user tries to create a new lobby
             lobby_id = generate_room_code()
             # TODO add this lobby_id to lobby table
-        elif not lobby_exists(connection, code):
+        elif not lobby_exists(code):
             # if the code the user enters is not a lobby code in the database, prompt user for a different code
             return flask.render_template('mainpage.html', error_code="Room code does not exist.", name = name)    
 
@@ -63,7 +62,7 @@ def main_page():
 
 
         # redirect to lobby page
-        return flask.redirect(flask.url_for("lobby_page", lobby_id = lobby_id))
+        return flask.redirect(flask.url_for("lobby.lobby_page", lobby_id = lobby_id))
 
 
     return flask.render_template('mainpage.html')

@@ -15,6 +15,27 @@
 
         <!--TODO Add user has joined message-->
 
+        <script type="text/javascript">
+            var socketio = io();
+
+            const messages = document.getElementById("messages");
+
+            const createMessage = (name, msg) => {
+                const content = `
+                <div class="text">
+                    <span>
+                        <strong>${name}</strong>:${msg}
+                    </span>
+                </div>
+                `;
+                messages.innerHTML += content;
+            };
+
+            socketio.on("message", (data) => {
+                createMessage(data.name, data.message);
+            });
+        </script>
+
         <label for="roundstart">Enter starting round number of cards in hand:</label>
         <input type="text" id="roundstart" placeholder="1-10"><br>
 
