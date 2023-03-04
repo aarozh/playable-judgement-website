@@ -14,8 +14,8 @@ lobby = flask.Blueprint("lobby", __name__)
 def lobby_page(lobby_id):
     """Lobby page post and get request route handling."""
 
-    if not lobby_exists(lobby_id) or flask.session["name"] is None:
-        return flask.redirect(flask.url_for("main_page"))
+    if not lobby_exists(lobby_id):
+        return flask.redirect(flask.url_for("main.main_page"))
     
     # post request if user filled out main page
     if flask.request.method == "POST":

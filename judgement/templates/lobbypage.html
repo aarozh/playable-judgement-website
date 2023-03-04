@@ -13,16 +13,22 @@
     <body>
         <div class="content">
             <h1>Lobby ID: {{lobby_id}}</h1>
-
-            <label for="roundstart">Enter starting round number of cards in hand:</label>
-            <input type="text" id="roundstart" placeholder="1-10"><br>
             
-            <input type="radio" id="modeup" name="mode">
-            <label for="modeup">Play rounds down and up</label><br>
-            <input type="radio" id="modedown" name="mode">
-            <label for="modedown">Play rounds going down only</label><br>
-
-            <button type="submit" name="join">Start Game</button>
+            <div class="rounds">
+                <label for="roundstart">Enter starting round number of cards in hand: </label>
+                <input type="text" id="roundstart" placeholder="1-10"><br>
+            </div>
+            
+            <div class="mode">
+                <input type="radio" id="modeup" name="mode">
+                <label for="modeup">Play rounds down and up</label><br>
+                <input type="radio" id="modedown" name="mode">
+                <label for="modedown">Play rounds going down only</label><br>
+            </div>
+            
+            <div class="start-button">
+                <button type="submit" name="join">Start Game</button>
+            </div>
 
             <div class="messages" id="messages"></div>
 
